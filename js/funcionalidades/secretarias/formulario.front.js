@@ -29,7 +29,7 @@ ClinicParts.secretarias.formularioFront = {
       type: 'select', 
       required: true, 
       options: [
-        { label: 'Manhã', value: 'Manha' },
+        { label: 'Manhã', value: 'Manhã' },
         { label: 'Tarde', value: 'Tarde' },
         { label: 'Integral', value: 'Integral' }
       ],
