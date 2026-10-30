@@ -1,6 +1,6 @@
-/* Bônus opcional: grupo 03, sprint 2.
- * Escopo permitido: #editor-dialog[data-module="pacientes"][data-mode="manutencao"]
- * A manutenção estiliza apenas seu formulário; o cadastro também pode estilizar a lista do módulo.
- * Use as variáveis de cor existentes para respeitar os dois temas.
- * Não alterar as folhas de estilo compartilhadas.
+/* Bônus opcional: grupo 03, sprint 2, Médicos.
+ * Estilize apenas #main-content[data-module="medicos"]
+ * e #editor-dialog[data-module="medicos"] (cadastro e edição).
+ * Use as variáveis de cor existentes para respeitar os temas claro e escuro.
+ * A funcionalidade e os testes têm prioridade. Não alterar estilos compartilhados.
  */

@@ -1,9 +1,9 @@
-/* Grupo 02 | Sprint 1 | Interface de Salas. */
+/* Grupo 02 | Sprint 1 | Salas: cadastro, edição e exclusão. */
 window.ClinicParts = window.ClinicParts || {};
 ClinicParts.salas = ClinicParts.salas || {};
-ClinicParts.salas.cadastroFront = {
+ClinicParts.salas.formularioFront = {
   fields: [
-    // TODO_OFICINA: reconstruir sigla, localizacao conforme o PDF e o PO.
+    // TODO_OFICINA: reconstruir sigla, localizacao conforme o PDF e o P.O.
     {
       key: "nome",
       label: "Nome da sala",
@@ -18,4 +18,8 @@ ClinicParts.salas.cadastroFront = {
       wide: true,
     },
   ],
+  deletePreview(row, db) {
+    // TODO_OFICINA: identificar o registro, explicar os vínculos e pedir confirmação.
+    return "Confirmação de exclusão em desenvolvimento.";
+  },
 };

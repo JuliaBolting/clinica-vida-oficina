@@ -1,4 +1,4 @@
-/* Infraestrutura compartilhada. As regras dos sete grupos ficam nos módulos. */
+/* Infraestrutura compartilhada. As regras das equipes ficam nos módulos. */
 window.ClinicModules = {};
 window.ClinicError = class ClinicError extends Error {
   constructor(message, fields = {}) {

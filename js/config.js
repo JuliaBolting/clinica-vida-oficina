@@ -1,4 +1,4 @@
 window.ClinicConfig = {
-  "storageNamespace": "oficina-scrum-base-unica-2026",
+  "storageNamespace": "oficina-scrum-3-grupos-2026",
   "group": null
 };

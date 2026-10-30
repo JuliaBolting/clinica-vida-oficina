@@ -21,17 +21,12 @@ ClinicModules.pacientes = {
         db.convenios.find((c) => c.id === row.convenioId)?.nome || "Particular",
     };
   },
-  get fields() { return ClinicParts.pacientes.cadastroFront.fields; },
-  get editFields() { return ClinicParts.pacientes.manutencaoFront.fields; },
+  get fields() { return ClinicParts.pacientes.formularioFront.fields; },
+  get editFields() { return ClinicParts.pacientes.formularioFront.fields; },
   validar(d, db = ClinicStore.snapshot(), options = {}) {
-    const back = d.id ? ClinicParts.pacientes.manutencaoBack : ClinicParts.pacientes.cadastroBack;
-    return back.validar.call(this, d, db, options);
+    return ClinicParts.pacientes.crudBack.validar.call(this, d, db, options);
   },
-  salvar(d, original) {
-    return d.id
-      ? ClinicParts.pacientes.manutencaoBack.editar.call(this, d, original)
-      : ClinicParts.pacientes.cadastroBack.cadastrar.call(this, d, original);
-  },
-  excluir(id) { return ClinicParts.pacientes.manutencaoBack.excluir.call(this, id); },
-  deletePreview(row, db) { return ClinicParts.pacientes.manutencaoFront.deletePreview(row, db); },
+  salvar(d, original) { return ClinicParts.pacientes.crudBack.salvar.call(this, d, original); },
+  excluir(id) { return ClinicParts.pacientes.crudBack.excluir.call(this, id); },
+  deletePreview(row, db) { return ClinicParts.pacientes.formularioFront.deletePreview(row, db); },
 };

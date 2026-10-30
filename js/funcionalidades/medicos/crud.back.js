@@ -1,13 +1,13 @@
-/* Grupo 01 | Sprint 2 | Regras e dados de Médicos. */
+/* Grupo 03 | Sprint 2 | Médicos: cadastro, edição e exclusão. Regras locais no navegador, sem servidor. */
 window.ClinicParts = window.ClinicParts || {};
 ClinicParts.medicos = ClinicParts.medicos || {};
-ClinicParts.medicos.manutencaoBack = {
+ClinicParts.medicos.crudBack = {
   validar(d, db = ClinicStore.snapshot()) {
     const u = ClinicUtils,
       e = {};
     u.requiredName(d.nome, e);
-    // TODO_OFICINA: completar a regra de CRM acordada com o PO.
-    throw new ClinicError("OFICINA_PENDENTE: grupo 01, validar CRM.");
+    // TODO_OFICINA: validar CRM obrigatório e duplicidade, inclusive ao editar.
+    throw new ClinicError("OFICINA_PENDENTE: completar CRM.");
     if (!u.reference(db, "especialidades", d.especialidadeId))
       e.especialidadeId = "Selecione uma especialidade cadastrada.";
     if (
@@ -30,16 +30,16 @@ ClinicParts.medicos.manutencaoBack = {
       d.horaFim <= d.horaInicio
     )
       e.horaFim = "O fim deve ser após o início e até 18:00.";
-    // TODO_OFICINA: conferir impacto na agenda futura ao editar.
-    throw new ClinicError("OFICINA_PENDENTE: completar disponibilidade futura.");
+    // TODO_OFICINA: impedir edição que invalide uma consulta futura ativa.
+    throw new ClinicError("OFICINA_PENDENTE: completar impacto na agenda.");
     u.fail(e);
   },
-  editar(d, original) {
-    // TODO_OFICINA: implementar conforme a Sprint 2, validar e testar antes de retirar o bloqueio.
-    throw new ClinicError("OFICINA_PENDENTE: grupo 01, sprint 2, completar editar.");
+  salvar(d, original) {
+    // TODO_OFICINA: implementar as regras combinadas com o P.O e testar.
+    throw new ClinicError("OFICINA_PENDENTE: grupo 03, sprint 2, completar salvar.");
   },
   excluir(id) {
-    // TODO_OFICINA: implementar conforme a Sprint 2, validar e testar antes de retirar o bloqueio.
-    throw new ClinicError("OFICINA_PENDENTE: grupo 01, sprint 2, completar excluir.");
+    // TODO_OFICINA: implementar as regras combinadas com o P.O e testar.
+    throw new ClinicError("OFICINA_PENDENTE: grupo 03, sprint 2, completar excluir.");
   },
 };

@@ -1,7 +1,7 @@
-/* Grupo 02 | Sprint 2 | Regras e dados de Agendamentos. */
+/* Exemplo completo | Agendamentos. Regras locais no navegador, sem servidor. */
 window.ClinicParts = window.ClinicParts || {};
 ClinicParts.agendamentos = ClinicParts.agendamentos || {};
-ClinicParts.agendamentos.manutencaoBack = {
+ClinicParts.agendamentos.crudBack = {
   validar(d, db = ClinicStore.snapshot(), options = {}) {
     const u = ClinicUtils,
       e = {};
@@ -34,8 +34,9 @@ ClinicParts.agendamentos.manutencaoBack = {
     const past =
       `${d.data}T${d.hora}` <
       `${u.localDate()}T${u.time(new Date().getHours() * 60 + new Date().getMinutes())}`;
-    // TODO_OFICINA: completar a regra de data; preservar histórico e options.importing.
-    throw new ClinicError("OFICINA_PENDENTE: grupo 02, validar data.");
+    if (!options.importing && past && (!unchangedSlot || reactivated))
+      e.data =
+        "Novas consultas e remarcações precisam estar no presente ou futuro.";
     // O horário de um atendimento passado reflete a disponibilidade da época.
     const historical = original && unchangedSlot && past && !reactivated;
     // Consultas canceladas/faltas continuam no histórico e liberam o horário.
@@ -54,18 +55,50 @@ ClinicParts.agendamentos.manutencaoBack = {
         (d.hora < medico.horaInicio || end > u.minutes(medico.horaFim))
       )
         e.hora = `O atendimento deve caber entre ${medico.horaInicio} e ${medico.horaFim}.`;
-      // TODO_OFICINA: conferir sobreposição de todos os recursos definidos pelo PO.
-      // Apoio: ClinicUtils.minutes e ClinicUtils.endTime.
-      throw new ClinicError("OFICINA_PENDENTE: completar conflitos.");
+      for (const [field, label] of [
+        ["medicoId", "O médico"],
+        ["salaId", "A sala"],
+        ["pacienteId", "O paciente"],
+      ]) {
+        const conflict = db.agendamentos.find(
+          (a) =>
+            a.id !== d.id &&
+            u.active(a) &&
+            a.data === d.data &&
+            a[field] === d[field] &&
+            start < u.minutes(a.hora) + Number(a.duracao || 30) &&
+            end > u.minutes(a.hora),
+        );
+        if (conflict)
+          e[field] =
+            `${label} já possui uma consulta entre ${conflict.hora} e ${u.endTime(conflict)}.`;
+      }
     }
     u.fail(e);
   },
-  editar(d, original) {
-    // TODO_OFICINA: implementar conforme a Sprint 2, validar e testar antes de retirar o bloqueio.
-    throw new ClinicError("OFICINA_PENDENTE: grupo 02, sprint 2, completar editar.");
+  salvar(d, original) {
+    const u = ClinicUtils;
+    const row = {
+      id: d.id || "",
+      pacienteId: d.pacienteId,
+      medicoId: d.medicoId,
+      salaId: d.salaId,
+      data: d.data,
+      hora: d.hora,
+      duracao: Number(d.duracao ?? 30),
+      status: d.status || "agendada",
+      secretariaId: d.secretariaId || "",
+      observacoes: u.text(d.observacoes),
+    };
+    this.validar(row);
+    return ClinicStore.save(
+      "agendamentos",
+      row,
+      `consulta em ${u.date(row.data)} às ${row.hora}`,
+      original,
+    );
   },
   excluir(id) {
-    // TODO_OFICINA: implementar conforme a Sprint 2, validar e testar antes de retirar o bloqueio.
-    throw new ClinicError("OFICINA_PENDENTE: grupo 02, sprint 2, completar excluir.");
+    return ClinicStore.remove("agendamentos", id);
   },
 };

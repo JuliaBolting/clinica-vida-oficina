@@ -17,17 +17,12 @@ ClinicModules.salas = {
       consultas: db.agendamentos.filter((a) => a.salaId === row.id).length,
     };
   },
-  get fields() { return ClinicParts.salas.cadastroFront.fields; },
-  get editFields() { return ClinicParts.salas.manutencaoFront.fields; },
+  get fields() { return ClinicParts.salas.formularioFront.fields; },
+  get editFields() { return ClinicParts.salas.formularioFront.fields; },
   validar(d, db = ClinicStore.snapshot(), options = {}) {
-    const back = d.id ? ClinicParts.salas.manutencaoBack : ClinicParts.salas.cadastroBack;
-    return back.validar.call(this, d, db, options);
+    return ClinicParts.salas.crudBack.validar.call(this, d, db, options);
   },
-  salvar(d, original) {
-    return d.id
-      ? ClinicParts.salas.manutencaoBack.editar.call(this, d, original)
-      : ClinicParts.salas.cadastroBack.cadastrar.call(this, d, original);
-  },
-  excluir(id) { return ClinicParts.salas.manutencaoBack.excluir.call(this, id); },
-  deletePreview(row, db) { return ClinicParts.salas.manutencaoFront.deletePreview(row, db); },
+  salvar(d, original) { return ClinicParts.salas.crudBack.salvar.call(this, d, original); },
+  excluir(id) { return ClinicParts.salas.crudBack.excluir.call(this, id); },
+  deletePreview(row, db) { return ClinicParts.salas.formularioFront.deletePreview(row, db); },
 };

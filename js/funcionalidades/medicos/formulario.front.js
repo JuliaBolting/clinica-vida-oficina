@@ -1,9 +1,9 @@
-/* Grupo 01 | Sprint 2 | Interface de Médicos. */
+/* Grupo 03 | Sprint 2 | Médicos: cadastro, edição e exclusão. */
 window.ClinicParts = window.ClinicParts || {};
 ClinicParts.medicos = ClinicParts.medicos || {};
-ClinicParts.medicos.manutencaoFront = {
+ClinicParts.medicos.formularioFront = {
   fields: [
-    // TODO_OFICINA: reconstruir horaInicio, horaFim conforme o PDF e o PO.
+    // TODO_OFICINA: reconstruir especialidadeId, diasAtendimento conforme o PDF e o P.O.
     {
       key: "nome",
       label: "Nome completo",
@@ -18,23 +18,22 @@ ClinicParts.medicos.manutencaoFront = {
       placeholder: "Ex.: CRM/SC 12345",
     },
     {
-      key: "especialidadeId",
-      label: "Especialidade",
-      type: "select",
-      source: "especialidades",
+      key: "horaInicio",
+      label: "Início do atendimento",
+      type: "time",
       required: true,
-      placeholder: "Selecione uma especialidade",
+      default: "08:00",
     },
     {
-      key: "diasAtendimento",
-      label: "Dias de atendimento",
-      type: "weekdays",
+      key: "horaFim",
+      label: "Fim do atendimento",
+      type: "time",
       required: true,
-      wide: true,
+      default: "18:00",
     },
   ],
   deletePreview(row, db) {
-    // TODO_OFICINA: identificar o registro e explicar o impacto da exclusão, conforme o PO.
+    // TODO_OFICINA: identificar o registro, explicar os vínculos e pedir confirmação.
     return "Confirmação de exclusão em desenvolvimento.";
   },
 };

@@ -1,6 +1,6 @@
-/* Bônus opcional: grupo 02, sprint 2.
- * Escopo permitido: #editor-dialog[data-module="agendamentos"][data-mode="manutencao"]
- * A manutenção estiliza apenas seu formulário; o cadastro também pode estilizar a lista do módulo.
- * Use as variáveis de cor existentes para respeitar os dois temas.
- * Não alterar as folhas de estilo compartilhadas.
+/* Bônus opcional: grupo 02, sprint 2, Convênios.
+ * Estilize apenas #main-content[data-module="convenios"]
+ * e #editor-dialog[data-module="convenios"] (cadastro e edição).
+ * Use as variáveis de cor existentes para respeitar os temas claro e escuro.
+ * A funcionalidade e os testes têm prioridade. Não alterar estilos compartilhados.
  */

@@ -21,17 +21,12 @@ ClinicModules.medicos = {
       horario: `${row.horaInicio}–${row.horaFim}`,
     };
   },
-  get fields() { return ClinicParts.medicos.cadastroFront.fields; },
-  get editFields() { return ClinicParts.medicos.manutencaoFront.fields; },
+  get fields() { return ClinicParts.medicos.formularioFront.fields; },
+  get editFields() { return ClinicParts.medicos.formularioFront.fields; },
   validar(d, db = ClinicStore.snapshot(), options = {}) {
-    const back = d.id ? ClinicParts.medicos.manutencaoBack : ClinicParts.medicos.cadastroBack;
-    return back.validar.call(this, d, db, options);
+    return ClinicParts.medicos.crudBack.validar.call(this, d, db, options);
   },
-  salvar(d, original) {
-    return d.id
-      ? ClinicParts.medicos.manutencaoBack.editar.call(this, d, original)
-      : ClinicParts.medicos.cadastroBack.cadastrar.call(this, d, original);
-  },
-  excluir(id) { return ClinicParts.medicos.manutencaoBack.excluir.call(this, id); },
-  deletePreview(row, db) { return ClinicParts.medicos.manutencaoFront.deletePreview(row, db); },
+  salvar(d, original) { return ClinicParts.medicos.crudBack.salvar.call(this, d, original); },
+  excluir(id) { return ClinicParts.medicos.crudBack.excluir.call(this, id); },
+  deletePreview(row, db) { return ClinicParts.medicos.formularioFront.deletePreview(row, db); },
 };

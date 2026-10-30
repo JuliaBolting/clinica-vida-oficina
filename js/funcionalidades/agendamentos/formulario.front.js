@@ -1,9 +1,8 @@
-/* Grupo 07 | Sprint 1 | Interface de Agendamentos. */
+/* Exemplo completo | Agendamentos. */
 window.ClinicParts = window.ClinicParts || {};
 ClinicParts.agendamentos = ClinicParts.agendamentos || {};
-ClinicParts.agendamentos.cadastroFront = {
+ClinicParts.agendamentos.formularioFront = {
   fields: [
-    // TODO_OFICINA: reconstruir medicoId, data, hora, duracao conforme o PDF e o PO.
     {
       key: "pacienteId",
       label: "Paciente",
@@ -14,12 +13,30 @@ ClinicParts.agendamentos.cadastroFront = {
       wide: true,
     },
     {
+      key: "medicoId",
+      label: "Médico",
+      type: "select",
+      source: "medicos",
+      required: true,
+      placeholder: "Selecione o médico",
+    },
+    {
       key: "salaId",
       label: "Sala",
       type: "select",
       source: "salas",
       required: true,
       placeholder: "Selecione a sala",
+    },
+    { key: "data", label: "Data da consulta", type: "date", required: true },
+    { key: "hora", label: "Horário", type: "time", required: true },
+    {
+      key: "duracao",
+      label: "Duração",
+      type: "number",
+      required: true,
+      default: 30,
+      options: [15, 30, 45, 60, 90, 120],
     },
     {
       key: "status",
@@ -51,4 +68,7 @@ ClinicParts.agendamentos.cadastroFront = {
       placeholder: "Informações administrativas para o atendimento",
     },
   ],
+  deletePreview(row, db) {
+    return `A consulta de ${ClinicUtils.date(row.data)} às ${row.hora} será removida permanentemente. Para preservar o histórico e liberar o horário, use Cancelar.`;
+  },
 };

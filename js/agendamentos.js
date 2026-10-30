@@ -55,17 +55,12 @@ ClinicModules.agendamentos = {
     }
     return slots;
   },
-  get fields() { return ClinicParts.agendamentos.cadastroFront.fields; },
-  get editFields() { return ClinicParts.agendamentos.manutencaoFront.fields; },
+  get fields() { return ClinicParts.agendamentos.formularioFront.fields; },
+  get editFields() { return ClinicParts.agendamentos.formularioFront.fields; },
   validar(d, db = ClinicStore.snapshot(), options = {}) {
-    const back = d.id ? ClinicParts.agendamentos.manutencaoBack : ClinicParts.agendamentos.cadastroBack;
-    return back.validar.call(this, d, db, options);
+    return ClinicParts.agendamentos.crudBack.validar.call(this, d, db, options);
   },
-  salvar(d, original) {
-    return d.id
-      ? ClinicParts.agendamentos.manutencaoBack.editar.call(this, d, original)
-      : ClinicParts.agendamentos.cadastroBack.cadastrar.call(this, d, original);
-  },
-  excluir(id) { return ClinicParts.agendamentos.manutencaoBack.excluir.call(this, id); },
-  deletePreview(row, db) { return ClinicParts.agendamentos.manutencaoFront.deletePreview(row, db); },
+  salvar(d, original) { return ClinicParts.agendamentos.crudBack.salvar.call(this, d, original); },
+  excluir(id) { return ClinicParts.agendamentos.crudBack.excluir.call(this, id); },
+  deletePreview(row, db) { return ClinicParts.agendamentos.formularioFront.deletePreview(row, db); },
 };

@@ -1,9 +1,9 @@
-/* Grupo 04 | Sprint 1 | Interface de Pacientes. */
+/* Grupo 01 | Sprint 2 | Pacientes: cadastro, edição e exclusão. */
 window.ClinicParts = window.ClinicParts || {};
 ClinicParts.pacientes = ClinicParts.pacientes || {};
-ClinicParts.pacientes.cadastroFront = {
+ClinicParts.pacientes.formularioFront = {
   fields: [
-    // TODO_OFICINA: reconstruir cpf, convenioId conforme o PDF e o PO.
+    // TODO_OFICINA: reconstruir cpf, convenioId conforme o PDF e o P.O.
     {
       key: "nome",
       label: "Nome completo",
@@ -36,4 +36,8 @@ ClinicParts.pacientes.cadastroFront = {
       helper: "Use dados fictícios neste projeto educacional.",
     },
   ],
+  deletePreview(row, db) {
+    // TODO_OFICINA: identificar o registro, explicar os vínculos e pedir confirmação.
+    return "Confirmação de exclusão em desenvolvimento.";
+  },
 };

@@ -16,17 +16,12 @@ ClinicModules.secretarias = {
       telefone: ClinicUtils.phoneFormat(row.telefone) || "Não informado",
     };
   },
-  get fields() { return ClinicParts.secretarias.cadastroFront.fields; },
-  get editFields() { return ClinicParts.secretarias.manutencaoFront.fields; },
+  get fields() { return ClinicParts.secretarias.formularioFront.fields; },
+  get editFields() { return ClinicParts.secretarias.formularioFront.fields; },
   validar(d, db = ClinicStore.snapshot(), options = {}) {
-    const back = d.id ? ClinicParts.secretarias.manutencaoBack : ClinicParts.secretarias.cadastroBack;
-    return back.validar.call(this, d, db, options);
+    return ClinicParts.secretarias.crudBack.validar.call(this, d, db, options);
   },
-  salvar(d, original) {
-    return d.id
-      ? ClinicParts.secretarias.manutencaoBack.editar.call(this, d, original)
-      : ClinicParts.secretarias.cadastroBack.cadastrar.call(this, d, original);
-  },
-  excluir(id) { return ClinicParts.secretarias.manutencaoBack.excluir.call(this, id); },
-  deletePreview(row, db) { return ClinicParts.secretarias.manutencaoFront.deletePreview(row, db); },
+  salvar(d, original) { return ClinicParts.secretarias.crudBack.salvar.call(this, d, original); },
+  excluir(id) { return ClinicParts.secretarias.crudBack.excluir.call(this, id); },
+  deletePreview(row, db) { return ClinicParts.secretarias.formularioFront.deletePreview(row, db); },
 };

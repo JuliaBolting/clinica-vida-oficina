@@ -1,7 +1,6 @@
-/* Bônus opcional: grupo 02, sprint 1.
- * Escopo permitido: #editor-dialog[data-module="salas"][data-mode="cadastro"]
- * Lista permitida: #main-content[data-module="salas"]
- * A manutenção estiliza apenas seu formulário; o cadastro também pode estilizar a lista do módulo.
- * Use as variáveis de cor existentes para respeitar os dois temas.
- * Não alterar as folhas de estilo compartilhadas.
+/* Bônus opcional: grupo 02, sprint 1, Salas.
+ * Estilize apenas #main-content[data-module="salas"]
+ * e #editor-dialog[data-module="salas"] (cadastro e edição).
+ * Use as variáveis de cor existentes para respeitar os temas claro e escuro.
+ * A funcionalidade e os testes têm prioridade. Não alterar estilos compartilhados.
  */
