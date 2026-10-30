@@ -2,6 +2,11 @@
 window.ClinicParts = window.ClinicParts || {};
 ClinicParts.secretarias = ClinicParts.secretarias || {};
 const SECRETARIA_TURNOS = ["Manhã", "Tarde", "Integral"];
+// Aceita "manha", "MANHÃ", " Manhã " etc. e devolve a grafia padrão ("" se inválido).
+const secretariaTurno = (value) =>
+  SECRETARIA_TURNOS.find(
+    (t) => ClinicUtils.normalize(t) === ClinicUtils.normalize(value),
+  ) || "";
 ClinicParts.secretarias.crudBack = {
   validar(d, db = ClinicStore.snapshot(), options = {}) {
     const u = ClinicUtils,
@@ -16,9 +21,14 @@ ClinicParts.secretarias.crudBack = {
       e.email = "Informe um e-mail válido.";
     else if (d.email && u.unique(db, "secretarias", "email", d.email, d.id))
       e.email = "Já existe uma secretária com este e-mail.";
-    if (d.turno && !SECRETARIA_TURNOS.includes(d.turno))
+    if (u.text(d.turno) && !secretariaTurno(d.turno))
       e.turno = `Escolha um turno: ${SECRETARIA_TURNOS.join(", ")}.`;
-    u.fail(e);
+    // E-mail e turno ainda não aparecem no formulário: o motivo vai na mensagem geral.
+    if (Object.keys(e).length)
+      throw new ClinicError(
+        `Confira os campos destacados: ${Object.values(e).join(" ")}`,
+        e,
+      );
   },
   salvar(d, original) {
     const u = ClinicUtils;
@@ -26,10 +36,11 @@ ClinicParts.secretarias.crudBack = {
     const row = {
       id: d.id || "",
       nome: u.text(d.nome),
-      email: u.text(d.email ?? original?.email),
+      email: u.text(d.email ?? original?.email).toLowerCase(),
       telefone: u.digits(d.telefone),
       turno: u.text(d.turno ?? original?.turno),
     };
+    if (secretariaTurno(row.turno)) row.turno = secretariaTurno(row.turno);
     this.validar(row);
     return ClinicStore.save("secretarias", row, row.nome, original);
   },
